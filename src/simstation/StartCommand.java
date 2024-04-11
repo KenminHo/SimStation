@@ -1,6 +1,6 @@
 package simstation;
 
-import ca.Grid;
+
 import mvc.Command;
 import mvc.Model;
 import stopLight.Stoplight;

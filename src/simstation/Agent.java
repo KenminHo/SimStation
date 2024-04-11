@@ -1,50 +1,57 @@
 package simstation;
 
-import mvc.Model;
 import mvc.Publisher;
 import mvc.Utilities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.awt.*;
-import java.util.Iterator;
 
 public abstract class Agent extends Publisher implements Serializable, Runnable {
 
     private String name;
     protected Heading heading;
-    protected int xc;
-    protected int yx;
+    protected int xc = Utilities.rng.nextInt(0,250);
+    protected int yx = Utilities.rng.nextInt(0,250);
     private boolean suspended = false;
     private boolean stopped = false;
     protected transient Thread thread;
 
     protected Simulation world;
 
+    public void setWorld(Simulation w) {world = w;}
+
     public void run() {
-        start();
-        stop();
-
+        thread = Thread.currentThread();
+        while (!stopped) {
+            try {
+                update();
+                Thread.sleep(1000);
+                suspended = true;
+            } catch(InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
-    public abstract void start();
-
-
-    public void suspend() {
-
+    public synchronized void start() {
+        stopped = false;
+        run();
     }
 
-    public void resume() {
 
+    public synchronized void suspend() {
+        suspended = true;
     }
 
-    public void stop() {
-
+    public synchronized void resume() {
+       stopped = false;
+       run();
     }
 
-    public void update() {
-
+    public synchronized void stop() {
+        stopped = true;
     }
+
+    public abstract void update();
 
     public void move(int steps) {
         for (int i = 0; i < steps; i ++) {

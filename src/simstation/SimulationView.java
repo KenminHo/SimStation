@@ -1,7 +1,6 @@
 package simstation;
 
-import ca.CellView;
-import ca.Grid;
+
 import mvc.Model;
 import mvc.View;
 import stopLight.StopLightShape;
@@ -20,6 +19,12 @@ public class SimulationView extends View {
         super(model);
         setSize(500, 500);
         setBackground(Color.LIGHT_GRAY);
+        for (int count = 0; count < ((Simulation)model).agents.size(); count ++) {
+            Agent temp = ((Simulation)model).agents.get(count);
+            temp.subscribe(this);
+            System.out.println("Subscriber added");
+
+        }
         repaint();
 
     }
@@ -30,8 +35,6 @@ public class SimulationView extends View {
         super.paintComponent(gc);
         for (int count = 0; count < ((Simulation)model).agents.size(); count ++) {
             Agent temp = ((Simulation)model).agents.get(count);
-            temp.subscribe(this);
-            System.out.println("Subscriber added");
             gc.fillOval(temp.xc - dotSize / 2, temp.yx - dotSize / 2, dotSize, dotSize);
         }
 

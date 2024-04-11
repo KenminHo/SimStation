@@ -1,17 +1,14 @@
 package simstation;
-
-import ca.Cell;
 import mvc.Model;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public abstract class Simulation extends Model {
+public class Simulation extends Model {
 
     protected ArrayList<Agent> agents = new ArrayList<>();
     private int clock = 0;
-
 
 
 
@@ -19,7 +16,8 @@ public abstract class Simulation extends Model {
         System.out.println("Simulation start works");
         populate();
         for (Agent agent: agents) {
-            agent.start();
+            Thread thread = new Thread(agent);
+            thread.start();
             System.out.println("there are agents");
         }
     }
@@ -53,11 +51,11 @@ public abstract class Simulation extends Model {
         return hi;
     }
 
-    public abstract void populate();
+    public void populate() {}
 
     public void addAgent(Agent agent) {
         agents.add(agent);
-
+        agent.setWorld(this);
     }
 
     transient private Timer timer; // timers aren't serializable
