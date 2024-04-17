@@ -15,12 +15,16 @@ public class Simulation extends Model {
 
     public void start() {
       //  System.out.println("Simulation start works");
+        if(!agents.isEmpty())
+        {
+            agents.clear();
+        }
         populate();
         for (Agent agent: agents) {
             Thread thread = new Thread(agent);
             thread.start();
         }
-        temp.run();
+        startTimer();
     }
 
     public void stats() {
@@ -31,6 +35,7 @@ public class Simulation extends Model {
         for (Agent agent: agents) {
             agent.suspend();
         }
+        stopTimer();
 
     }
 
@@ -38,12 +43,18 @@ public class Simulation extends Model {
         for (Agent agent: agents) {
             agent.resume();
         }
+        for (Agent agent: agents) {
+            Thread thread = new Thread(agent);
+            thread.start();
+        }
+        startTimer();
     }
 
     public void stop() {
         for (Agent agent: agents) {
             agent.stop();
         }
+        stopTimer();
     }
 
     public Agent getNeighbors(Agent a, int radius) {

@@ -59,6 +59,7 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
     public synchronized void resume() {
        suspended = false;
 
+
     }
 
     public synchronized void stop() {
