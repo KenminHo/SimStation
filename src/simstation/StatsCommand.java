@@ -10,6 +10,8 @@ public class StatsCommand extends Command {
 
     @Override
     public void execute() {
-        super.execute();
+        Simulation map = (Simulation)model;
+        System.out.println("Stats command");
+        map.stats();
     }
 }

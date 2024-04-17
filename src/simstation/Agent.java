@@ -20,17 +20,31 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
     public void setWorld(Simulation w) {world = w;}
 
     public void run() {
+
         thread = Thread.currentThread();
+        System.out.println(thread);
         while (!stopped) {
             try {
                 update();
                 Thread.sleep(1000);
-                suspended = true;
+                checkSuspended();
             } catch(InterruptedException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
+
+    private synchronized void checkSuspended() {
+        try {
+            while(!stopped && suspended) {
+                wait();
+                suspended = false;
+            }
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public synchronized void start() {
         stopped = false;
@@ -43,8 +57,8 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
     }
 
     public synchronized void resume() {
-       stopped = false;
-       run();
+       suspended = false;
+
     }
 
     public synchronized void stop() {
@@ -55,13 +69,13 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
 
     public void move(int steps) {
         for (int i = 0; i < steps; i ++) {
-            if (Heading.direction == 1) {
+            if (Heading.direction == 0) {
                 xc += 1;
-            } else if (Heading.direction == 2) {
+            } else if (Heading.direction == 1) {
                 yx += -1;
-            } else if (Heading.direction == 3) {
+            } else if (Heading.direction == 2) {
                 xc += -1;
-            } else if (Heading.direction == 4) {
+            } else if (Heading.direction == 3) {
                 yx += 1;
             }
             world.changed();
@@ -78,6 +92,7 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
 
         public static Heading random() {
             direction = Utilities.rng.nextInt(4);
+         //   System.out.println(direction);
             return test;
 
 

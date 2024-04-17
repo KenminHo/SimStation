@@ -3,6 +3,8 @@ package simstation.randomwalk;
 import mvc.*;
 import simstation.SimulationFactory;
 
+import javax.swing.*;
+
 public class RandomWalkFactory extends SimulationFactory {
     public Model makeModel() { return new RandomWalkSimulation(); }
     public String getTitle() { return "Random Walks";}
@@ -16,4 +18,6 @@ public class RandomWalkFactory extends SimulationFactory {
     public String about() {
         return null;
     }
+
+
 }

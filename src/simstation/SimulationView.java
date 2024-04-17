@@ -22,7 +22,7 @@ public class SimulationView extends View {
         for (int count = 0; count < ((Simulation)model).agents.size(); count ++) {
             Agent temp = ((Simulation)model).agents.get(count);
             temp.subscribe(this);
-            System.out.println("Subscriber added");
+         //   System.out.println("Subscriber added");
 
         }
         repaint();
@@ -41,7 +41,7 @@ public class SimulationView extends View {
     }
 
     public void update(){
-        System.out.println("repainting person/thing");
+      //  System.out.println("repainting person/thing");
         repaint();
     }
 

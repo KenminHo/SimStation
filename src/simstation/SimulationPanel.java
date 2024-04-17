@@ -6,13 +6,16 @@ import mvc.AppPanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class SimulationPanel extends AppPanel {
+public class SimulationPanel extends AppPanel{
 
     private JButton start;
     private JButton suspend;
     private JButton resume;
     private JButton stop;
     private JButton stats;
+
+    transient protected Thread myThread;
+
     public SimulationPanel(AppFactory factory) {
         super(factory);
 

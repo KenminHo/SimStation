@@ -1,9 +1,6 @@
 package simstation;
 
-import mvc.AppFactory;
-import mvc.Command;
-import mvc.Model;
-import mvc.View;
+import mvc.*;
 import stopLight.ChangeCommand;
 
 public abstract class SimulationFactory implements AppFactory {
@@ -17,7 +14,7 @@ public abstract class SimulationFactory implements AppFactory {
 
     @Override
     public String[] getEditCommands() {
-        return new String[] { "Start", "Suspend", "Resume", "Stop", "Stats" };
+        return new String[]{"Start", "Suspend", "Resume", "Stop", "Stats"};
     }
 
     @Override
@@ -31,4 +28,6 @@ public abstract class SimulationFactory implements AppFactory {
             default -> null;
         };
     }
+
+
 }

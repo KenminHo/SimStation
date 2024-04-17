@@ -1,5 +1,6 @@
 package simstation;
 import mvc.Model;
+import mvc.Utilities;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -8,18 +9,22 @@ import java.util.TimerTask;
 public class Simulation extends Model {
 
     protected ArrayList<Agent> agents = new ArrayList<>();
-    private int clock = 0;
+    protected int clock = 0;
 
-
+    ClockUpdater temp = new ClockUpdater();
 
     public void start() {
-        System.out.println("Simulation start works");
+      //  System.out.println("Simulation start works");
         populate();
         for (Agent agent: agents) {
             Thread thread = new Thread(agent);
             thread.start();
-            System.out.println("there are agents");
         }
+        temp.run();
+    }
+
+    public void stats() {
+
     }
 
     public void suspend() {
@@ -44,7 +49,7 @@ public class Simulation extends Model {
     public Agent getNeighbors(Agent a, int radius) {
         Agent hi = null;
         for (Agent agent: agents) {
-            ;System.out.println("Agents are Moving");
+            //System.out.println("Agents are Moving");
             hi = agent; 
         }
         
@@ -73,6 +78,8 @@ public class Simulation extends Model {
 
     private class ClockUpdater extends TimerTask {
         public void run() {
+
+            System.out.println("CLOCK WORKS)");
             clock++;
         }
     }
