@@ -22,17 +22,28 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
     public void run() {
 
         thread = Thread.currentThread();
-        System.out.println(thread);
+        checkSuspended();
+        onStart();
         while (!stopped) {
             try {
                 update();
-                Thread.sleep(1000);
+                Thread.sleep(50);
                 checkSuspended();
-            } catch(InterruptedException e) {
-                System.out.println(e.getMessage());
+            } catch (InterruptedException e) {
+                Utilities.error(e);
             }
         }
+        onExit();
 
+    }
+
+    private void onExit() {
+    }
+
+    private void onInterrupted() {
+    }
+
+    private void onStart() {
     }
 
     private synchronized void checkSuspended() {

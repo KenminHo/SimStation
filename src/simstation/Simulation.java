@@ -5,13 +5,15 @@ import mvc.Utilities;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
+import java.util.Iterator;
 public class Simulation extends Model {
 
     protected ArrayList<Agent> agents = new ArrayList<>();
     protected int clock = 0;
 
     ClockUpdater temp = new ClockUpdater();
+
+
 
     public void start() {
       //  System.out.println("Simulation start works");
@@ -59,9 +61,22 @@ public class Simulation extends Model {
 
     public Agent getNeighbors(Agent a, int radius) {
         Agent hi = null;
+        double x = 0;
+        double y = 0;
+        double distance = 0;
+        int random = Utilities.rng.nextInt(agents.size());
         for (Agent agent: agents) {
-            //System.out.println("Agents are Moving");
-            hi = agent; 
+            if(random == agents.size()) {random = 0;}
+
+            x = agents.get(random).xc - agent.xc;
+            y = agents.get(random).yx - agent.yx;
+            distance = Math.pow(x,2) + Math.pow(y,2);
+            distance = Math.sqrt(distance);
+            if (distance < radius)
+            {
+                return agent;
+            }
+            random ++;
         }
         
         return hi;
@@ -85,6 +100,10 @@ public class Simulation extends Model {
     private void stopTimer() {
         timer.cancel();
         timer.purge();
+    }
+
+    public Iterator<Agent> iterator() {
+        return (Iterator<Agent>) agents;
     }
 
     private class ClockUpdater extends TimerTask {
