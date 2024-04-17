@@ -32,6 +32,7 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
                 System.out.println(e.getMessage());
             }
         }
+
     }
 
     private synchronized void checkSuspended() {
