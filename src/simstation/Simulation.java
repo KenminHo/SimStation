@@ -1,6 +1,5 @@
 package simstation;
-import mvc.Model;
-import mvc.Utilities;
+import mvc.*;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -29,16 +28,13 @@ public class Simulation extends Model {
         startTimer();
     }
 
-    public void stats() {
-
-    }
+    public void stats() {}
 
     public void suspend() {
         for (Agent agent: agents) {
             agent.suspend();
         }
         stopTimer();
-
     }
 
     public void resume() {
@@ -59,7 +55,7 @@ public class Simulation extends Model {
         stopTimer();
     }
 
-    public Agent getNeighbors(Agent a, int radius) {
+    public synchronized Agent getNeighbors (Agent a, double radius) {
         Agent hi = null;
         double x = 0;
         double y = 0;
@@ -78,7 +74,6 @@ public class Simulation extends Model {
             }
             random ++;
         }
-        
         return hi;
     }
 

@@ -1,23 +1,37 @@
 package flocking;
 
-import mvc.Utilities;
-import simstation.Agent;
+import mvc.*;
+import simstation.*;
 
 //speed: int; update() => simstation.Agent()
 
 public class Bird extends Agent{
-    public Bird(){
-        super();
-        heading = Heading.random();
+    private int speed;
+    public Bird(){ super();
+        this.heading = Heading.random();
+        this.speed = Utilities.rng.nextInt(5) + 1;
+        //setSpeed(getSpeed());
     }
+    @Override public void update(){
+        //heading = Heading.random();
+        Agent neighbor = world.getNeighbors(this, 10);
+        if(neighbor != null && neighbor instanceof Bird){
+            Bird b = (Bird) neighbor;
+            this.heading = b.heading;
+            this.speed = b.speed;
+        }
+        move(speed);
 
-    public void update(){
-        heading = Heading.random();
-        int steps = Utilities.rng.nextInt(10) + 1;
-        move(steps);
     }
+    public int getSpeed(){
+        //speed = Utilities.rng.nextInt(5) + 1;
+        return speed;
+    }
+/*    public void setSpeed(int speed){
+        this.speed = speed;
+    }*/
 
-    public void start(){
+   /* public void start(){
         while(true){
             update();
             try{
@@ -26,5 +40,5 @@ public class Bird extends Agent{
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 }

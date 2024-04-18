@@ -1,9 +1,9 @@
 package simstation;
 
-import mvc.Publisher;
-import mvc.Utilities;
+import mvc.*;
 
 import java.io.Serializable;
+import java.lang.Runnable;
 
 public abstract class Agent extends Publisher implements Serializable, Runnable {
 
@@ -17,7 +17,7 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
 
     protected Simulation world;
 
-    public void setWorld(Simulation w) {world = w;}
+    public void setWorld(Simulation w) {this.world = w;}
 
     public void run() {
 
@@ -68,11 +68,7 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
         suspended = true;
     }
 
-    public synchronized void resume() {
-       suspended = false;
-
-
-    }
+    public synchronized void resume() {suspended = false;}
 
     public synchronized void stop() {
         stopped = true;
@@ -107,8 +103,6 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
             direction = Utilities.rng.nextInt(4);
          //   System.out.println(direction);
             return test;
-
-
         }
     }
 }

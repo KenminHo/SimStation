@@ -28,6 +28,13 @@ public abstract class SimulationFactory implements AppFactory {
             default -> null;
         };
     }
-
+    @Override public String[] getHelp() { return new String[] {"[Start] to begin a simulation",
+            "[Suspend] to pause the simulation",
+    "[Resume] to resume paused simulation",
+    "[Stop] to end simulation",
+    "[Stats] to view simulation details"}; }
+    @Override public String about() { return "Flocking Simulation " +
+            "\n CS151 Group 11 \n Kenmin Ho, Taras Tishchenko";
+    }
 
 }
