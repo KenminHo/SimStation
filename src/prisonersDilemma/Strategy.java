@@ -12,7 +12,7 @@ public interface Strategy {
 
     class alwaysCooperate implements Strategy {
         @Override public boolean decision(Prisoner p) {return true;}
-         @Override public String assignStrat() {return "Cooperate";}
+        @Override public String assignStrat() {return "Cooperate";}
     }
 
     class randomlyCooperate implements Strategy {

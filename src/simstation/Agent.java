@@ -10,8 +10,8 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
 
     private String name;
     protected Heading heading;
-    protected int xc = Utilities.rng.nextInt(25,225);
-    protected int yx = Utilities.rng.nextInt(25,225);
+    public int xc = Utilities.rng.nextInt(25,225);
+    public int yx = Utilities.rng.nextInt(25,225);
     private boolean suspended = false;
     private boolean stopped = false;
     protected transient Thread thread;

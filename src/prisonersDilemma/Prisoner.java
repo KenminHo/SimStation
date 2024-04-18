@@ -13,8 +13,8 @@ public class Prisoner extends Agent {
 
     public boolean cooperate() {
         return true;
-    //return strategy.decide(this);
-        }
+        //return strategy.decide(this);
+    }
 
     public Prisoner (String name, Strategy strat) {
         super();
@@ -25,11 +25,11 @@ public class Prisoner extends Agent {
     public void fitnessScores (boolean pa, boolean pb) {
         //prisoner a cooperates, prisoner b cheats
         if (pa && !pb) fitness += 0;
-        //prisoner a cheats, prisoner b cooperates
+            //prisoner a cheats, prisoner b cooperates
         else if (!pa && pb) fitness += 5;
-        //both prisoners cooperate
+            //both prisoners cooperate
         else if (pa && pb) fitness += 3;
-        //both prisoners cheat
+            //both prisoners cheat
         else if (!pa && !pb) fitness += 1;
     }
 
@@ -55,6 +55,6 @@ public class Prisoner extends Agent {
             partnerCheated = !bStrat;
             partner.partnerCheated = !aStrat;
         }
-        move(5);
+        move(2);
     }
 }
