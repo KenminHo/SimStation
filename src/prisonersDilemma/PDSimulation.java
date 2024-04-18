@@ -21,8 +21,7 @@ public class PDSimulation extends Simulation {
         if (i == 3) {
             return Color.red;
         }
-
-        return Color.white;
+        return Color.BLACK;
     }
 
     @Override
@@ -31,65 +30,52 @@ public class PDSimulation extends Simulation {
         int tracker = 0;
         for (int i = 0; i < 40; i++) {
 
-            Strategy s = switch (i % 4) {
-                case 0 -> new Strategy.alwaysCooperate();
-                case 1 -> new Strategy.randomlyCooperate();
-                case 2 -> new Strategy.alwaysCheat();
-                case 3 -> new Strategy.tit4tat();
-                default -> null;
+            Color current = Color.WHITE;
+
+            Color s = switch (i % 4) {
+                case 0 -> current = Color.green;
+
+                case 1 -> current = Color.cyan;
+
+                case 2 -> current = Color.orange;
+
+                case 3 -> current = Color.red;
+
+                default -> throw new IllegalStateException("Unexpected value: " + i % 4);
             };
 
-            addAgent(new Prisoner("P# " + i, s, grabColor(tracker)));
-
-            if (tracker == 4) {
-                tracker = 0;
-            }
-            tracker++;
+            addAgent(new Prisoner("P# " + i, current));
         }
     }
 
-    public void stats() {
-        int totalFitness = 0;
+        public void stats() {
+            int cheatCounter = 0;
+            int coopCounter = 0;
+            int rndCounter = 0;
+            int t4tCounter = 0;
 
-        int totalCheaters = 0;
-        int totalCooperators = 0;
-        int totalRandoms = 0;
-        int totalTit4Tats = 0;
-
-        int cheatCounter = 0;
-        int coopCounter = 0;
-        int rndCounter = 0;
-        int t4tCounter = 0;
-
-        for (Agent agent: agents) {
-            if (aa instanceof Prisoner) {
-                Prisoner p = (Prisoner) aa;
-                //totalFitness += p.getFit();
-                totalFitness = p.getFit();
-                Strategy strat = p.getStrat();
-
-                if (strat instanceof Strategy.alwaysCooperate) {
-                    totalCooperators += totalFitness;
-                    coopCounter++;
-                } else if (strat instanceof Strategy.randomlyCooperate) {
-                    totalRandoms += totalFitness;
-                    rndCounter++;
-                } else if (strat instanceof Strategy.alwaysCheat) {
-                    totalCheaters += totalFitness;
-                    cheatCounter++;
-                } else if (strat instanceof Strategy.tit4tat) {
-                    totalTit4Tats += totalFitness;
-                    t4tCounter++;
+            for (Agent agent : agents) {
+                Prisoner p = (Prisoner) agent;
+                if (p.color == Color.green) {
+                    coopCounter += p.fitness;
+                } else if (p.color == Color.cyan) {
+                    rndCounter += p.fitness;
+                } else if (p.color == Color.orange) {
+                    t4tCounter += p.fitness;
+                } else if (p.color == Color.red) {
+                    cheatCounter += p.fitness;
                 }
             }
 
+            Utilities.inform(new String[]{"CoopStrat = " + coopCounter, "RandomStrat = " + rndCounter, "Tit4TatStrat = " + t4tCounter, "CheatStrat = " + cheatCounter});
         }
 
+        public static void main (String[]args){
+            AppPanel panel = new SimulationPanel(new PDFactory());
+            Simulation world = new Simulation();
+            world.populate();
+            panel.display();
+
+        }
 
     }
-    public static void main (String[]args){
-        AppPanel panel = new SimulationPanel(new PDFactory());
-        panel.display();
-
-    }
-}

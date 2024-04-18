@@ -5,24 +5,18 @@ import mvc.*;
 import java.awt.*;
 
 public class Prisoner extends Agent {
-    private int fitness = 0;
+    protected int fitness = 0;
     private boolean partnerCheated = false;
-    private Strategy strat;
 
-    protected Color color = Color.WHITE;
+    protected Color color = Color.BLACK;
 
 
     //-----------------------
 
-    public boolean cooperate() {
-        return true;
-        //return strategy.decide(this);
-    }
 
-    public Prisoner (String name, Strategy strat, Color color) {
+    public Prisoner (String name, Color color) {
         super();
         this.heading = Heading.random();
-        this.strat = strat;
         this.color = color;
     }
 
@@ -37,28 +31,65 @@ public class Prisoner extends Agent {
         else if (!pa && !pb) fitness += 1;
     }
 
-    public Strategy getStrat() {return strat;}
-    public int getFit() {return fitness;}
     public boolean didTheyCheat() {return partnerCheated;}
 
-    @Override
+
     public Color getColor() {
         return this.color;
     }
 
-    @Override public void update() {
+    public void update() {
         Prisoner partner = (Prisoner)world.getNeighbors(this, 10);
         heading = Heading.random();
-        if (partner != null) {
-//            partnerCheated = partner.cooperate();
-//            fitnessScores(strat.cooperate(), partnerCheated);
-            boolean aStrat = cooperate();
-            boolean bStrat = partner.cooperate();
-            fitnessScores(aStrat, bStrat);
-            partner.fitnessScores(bStrat, aStrat);
-            partnerCheated = !bStrat;
-            partner.partnerCheated = !aStrat;
+        int steps = Utilities.rng.nextInt(10) + 1;
+        boolean one = false;
+        boolean two = false;
+
+        if(partner != null) {
+
+            if (this.color == Color.green) {
+                one = true;
+            } else if (this.color == Color.red) {
+                one = false;
+            } else if (this.color == Color.cyan) {
+                int random = 0;
+                random = Utilities.rng.nextInt(2);
+                if (random == 0) {
+                    one = true;
+                } else if (random == 1) {
+                    one = false;
+                }
+            } else if (this.color == Color.orange) {
+                if (partnerCheated) {
+                    one = false;
+                }
+            }
+
+
+            if (partner.color == Color.green) {
+                two = true;
+            } else if (partner.color == Color.red) {
+                two = false;
+            } else if (partner.color == Color.cyan) {
+                int random = 0;
+                random = Utilities.rng.nextInt(2);
+                if (random == 0) {
+                    two = true;
+                } else if (random == 1) {
+                    two = false;
+                }
+            } else if (partner.color == Color.orange) {
+                if (partnerCheated) {
+                    two = false;
+                }
+            }
+
+            if (two) {
+                partnerCheated = true;
+            }
+
+            fitnessScores(one, two);
         }
-        move(2);
+        move(steps);
     }
 }
