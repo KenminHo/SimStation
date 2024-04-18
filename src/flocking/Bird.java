@@ -3,6 +3,8 @@ package flocking;
 import mvc.Utilities;
 import simstation.Agent;
 
+import java.awt.*;
+
 //speed: int; update() => simstation.Agent()
 
 public class Bird extends Agent{
@@ -15,6 +17,11 @@ public class Bird extends Agent{
         heading = Heading.random();
         int steps = Utilities.rng.nextInt(10) + 1;
         move(steps);
+    }
+
+    @Override
+    public Color getColor() {
+        return Color.WHITE;
     }
 
     public void start(){

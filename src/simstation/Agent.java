@@ -3,14 +3,15 @@ package simstation;
 import mvc.Publisher;
 import mvc.Utilities;
 
+import java.awt.*;
 import java.io.Serializable;
 
 public abstract class Agent extends Publisher implements Serializable, Runnable {
 
     private String name;
     protected Heading heading;
-    protected int xc = Utilities.rng.nextInt(0,250);
-    protected int yx = Utilities.rng.nextInt(0,250);
+    protected int xc = Utilities.rng.nextInt(25,225);
+    protected int yx = Utilities.rng.nextInt(25,225);
     private boolean suspended = false;
     private boolean stopped = false;
     protected transient Thread thread;
@@ -19,8 +20,9 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
 
     public void setWorld(Simulation w) {world = w;}
 
-    public void run() {
+    public abstract Color getColor();
 
+    public void run() {
         thread = Thread.currentThread();
         checkSuspended();
         onStart();

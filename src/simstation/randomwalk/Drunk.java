@@ -3,11 +3,17 @@ package simstation.randomwalk;
 import mvc.*;
 import simstation.*;
 
+import java.awt.*;
+
 class Drunk extends Agent {
 
     public Drunk() {
         super();
-        heading = Heading.random();
+    }
+
+    @Override
+    public Color getColor() {
+        return Color.WHITE;
     }
 
     public void update() {

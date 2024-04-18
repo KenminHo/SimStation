@@ -4,6 +4,8 @@ import mvc.*;
 import simstation.Simulation;
 import simstation.SimulationPanel;
 
+import java.awt.*;
+
 public class RandomWalkSimulation extends Simulation {
 
 
@@ -27,6 +29,7 @@ public class RandomWalkSimulation extends Simulation {
         Simulation world = new Simulation();
         world.populate();
         panel.display();
+
     }
 
 }

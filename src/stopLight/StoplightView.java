@@ -12,7 +12,7 @@ public class StoplightView extends View {
     {
         super(light);
         light.subscribe(this);
-        setSize(500, 500);
+        setSize(100, 100);
         Border blackline = BorderFactory.createLineBorder(Color.black);
         setBorder(blackline);
         setBackground(Color.LIGHT_GRAY);

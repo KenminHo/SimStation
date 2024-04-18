@@ -2,6 +2,7 @@ package simstation;
 import mvc.Model;
 import mvc.Utilities;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -10,9 +11,6 @@ public class Simulation extends Model {
 
     protected ArrayList<Agent> agents = new ArrayList<>();
     protected int clock = 0;
-
-    ClockUpdater temp = new ClockUpdater();
-
 
 
     public void start() {

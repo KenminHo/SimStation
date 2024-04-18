@@ -17,8 +17,9 @@ public class SimulationView extends View {
     private Agent myAgent;
     public SimulationView(Model model) {
         super(model);
-        setSize(500, 500);
+        setSize(10,10);
         setBackground(Color.LIGHT_GRAY);
+
         for (int count = 0; count < ((Simulation)model).agents.size(); count ++) {
             Agent temp = ((Simulation)model).agents.get(count);
             temp.subscribe(this);
@@ -35,7 +36,9 @@ public class SimulationView extends View {
         super.paintComponent(gc);
         for (int count = 0; count < ((Simulation)model).agents.size(); count ++) {
             Agent temp = ((Simulation)model).agents.get(count);
+            gc.setColor(temp.getColor());
             gc.fillOval(temp.xc - dotSize / 2, temp.yx - dotSize / 2, dotSize, dotSize);
+
         }
 
     }
