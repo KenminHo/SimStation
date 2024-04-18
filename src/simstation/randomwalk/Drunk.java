@@ -22,4 +22,9 @@ class Drunk extends Agent {
         move(steps);
     }
 
+    public int getHeading() {
+
+       return heading.direction;
+    }
+
 }

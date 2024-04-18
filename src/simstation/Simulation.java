@@ -57,26 +57,36 @@ public class Simulation extends Model {
         stopTimer();
     }
 
-    public Agent getNeighbors(Agent a, int radius) {
+    public Agent getNeighbors(Agent a, double radius) {
         Agent hi = null;
         double x = 0;
         double y = 0;
         double distance = 0;
-        int random = Utilities.rng.nextInt(agents.size());
+        int random = Utilities.rng.nextInt(agents.size()-1);
         for (Agent agent: agents) {
-            if(random == agents.size()) {random = 0;}
+            if (agents.get(random) != a) {
+                if (random == agents.size()-1) {
+                    random = 0;
+                    if(agents.get(random) == a)
+                    {
+                       random ++;
+                    }
+                }
 
-            x = agents.get(random).xc - agent.xc;
-            y = agents.get(random).yx - agent.yx;
-            distance = Math.pow(x,2) + Math.pow(y,2);
-            distance = Math.sqrt(distance);
-            if (distance < radius)
-            {
-                return agent;
+                x = agents.get(random).xc - a.xc;
+                y = agents.get(random).yx - a.yx;
+                distance = Math.pow(x, 2) + Math.pow(y, 2);
+                distance = Math.sqrt(distance);
+
+
+                if (distance < radius) {
+                     return agent;
+                }
+                random++;
             }
-            random ++;
         }
-        
+
+
         return hi;
     }
 

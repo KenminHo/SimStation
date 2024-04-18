@@ -32,7 +32,7 @@ public class SimulationView extends View {
 
     public void paintComponent(Graphics gc) {
 
-        System.out.println("hits");
+        //System.out.println("hits");
         super.paintComponent(gc);
         for (int count = 0; count < ((Simulation)model).agents.size(); count ++) {
             Agent temp = ((Simulation)model).agents.get(count);

@@ -20,6 +20,10 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
 
     public void setWorld(Simulation w) {world = w;}
 
+    public Agent() {
+        Heading.random();
+    }
+
     public abstract Color getColor();
 
     public void run() {
@@ -99,7 +103,7 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
 
     protected static class Heading {
 
-        public static int direction;
+        public static int direction = 0;
         static Heading test = new Heading();
         public Heading() {
             int direction = 0;
@@ -107,7 +111,6 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
 
         public static Heading random() {
             direction = Utilities.rng.nextInt(4);
-         //   System.out.println(direction);
             return test;
 
 

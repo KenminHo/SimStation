@@ -11,7 +11,7 @@ public class PlagueFactory extends SimulationFactory {
     }
     @Override
     public String[] getHelp() {
-        return new String[0];
+        return new String[]{"A simulation where living people (green) get infected by infected people (red)"};
     }
     @Override
     public String about() {

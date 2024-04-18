@@ -13,7 +13,7 @@ public class RandomWalkFactory extends SimulationFactory {
 
     @Override
     public String[] getHelp() {
-        return new String[0];
+        return new String[]{"A simulation where the people move in random directions"};
     }
 
     @Override
