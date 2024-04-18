@@ -2,6 +2,8 @@ package prisonersDilemma;
 import simstation.*;
 import mvc.*;
 
+import java.awt.*;
+
 public class Prisoner extends Agent {
     private int fitness = 0;
     private boolean partnerCheated = false;
@@ -34,6 +36,11 @@ public class Prisoner extends Agent {
     public Strategy getStrat() {return strat;}
     public int getFit() {return fitness;}
     public boolean didTheyCheat() {return partnerCheated;}
+
+    @Override
+    public Color getColor() {
+        return Color.WHITE;
+    }
 
     @Override public void update() {
         Prisoner partner = (Prisoner)world.getNeighbors(this, 10);
