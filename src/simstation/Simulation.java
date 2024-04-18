@@ -40,12 +40,9 @@ public class Simulation extends Model {
     }
 
     public void resume() {
+
         for (Agent agent: agents) {
             agent.resume();
-        }
-        for (Agent agent: agents) {
-            Thread thread = new Thread(agent);
-            thread.start();
         }
         startTimer();
     }

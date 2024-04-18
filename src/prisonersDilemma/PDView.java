@@ -21,14 +21,14 @@ public class PDView extends SimulationView {
     @Override public void paintComponent(Graphics g) {
         super.paintComponent(g);
         PDSimulation pd = (PDSimulation) model;
-        ArrayList<Agent> agents = pd.getAgents();
-        for (Agent a : agents) {
-            if (a instanceof Cooperate) {
-                g.setColor(Color.BLUE);
-            } else {
-                g.setColor(Color.RED);
-            }
-            g.fillOval(a.getX(), a.getY(), 5, 5);
-        }
+//        ArrayList<Agent> agents = pd.getAgents();
+//        for (Agent a : agents) {
+//            if (a instanceof Cooperate) {
+//                g.setColor(Color.BLUE);
+//            } else {
+//                g.setColor(Color.RED);
+//            }
+//            g.fillOval(a.getX(), a.getY(), 5, 5);
+//        }
     }
 }
