@@ -1,26 +1,35 @@
 package prisonersDilemma;
+import plague.PlagueFactory;
 import simstation.*;
 import mvc.*;
+
+import java.awt.*;
 import java.util.*;
 
 public class PDSimulation extends Simulation {
+
+    public Color grabColor(int i) {
+        if (i == 0) {
+            return Color.green;
+        }
+        if (i == 1) {
+            return Color.cyan;
+        }
+        if (i == 2) {
+            return Color.orange;
+        }
+        if (i == 3) {
+            return Color.red;
+        }
+
+        return Color.white;
+    }
+
     @Override
     public void populate() {
 
-        //Generate prisoners
-        //Strategies equally divided b/w prisoners
+        int tracker = 0;
         for (int i = 0; i < 40; i++) {
-
-/*            Strategy s;
-            if (i % 4 == 0) {
-                this.addAgent("P# " + i, new s.alwaysCooperate());
-            } else if (i % 4 == 1) {
-                this.addAgent("P# " + i, s.randomlyCooperate());
-            } else if (i % 4 == 2) {
-                addAgent(new Prisoner("P# " + i, new alwatsCheat()));
-            } else {
-                addAgent(new Prisoner("P# " + i, new tit4tat()));
-            }*/
 
             Strategy s = switch (i % 4) {
                 case 0 -> new Strategy.alwaysCooperate();
@@ -29,11 +38,17 @@ public class PDSimulation extends Simulation {
                 case 3 -> new Strategy.tit4tat();
                 default -> null;
             };
-            addAgent(new Prisoner("P# " + i, s));
+
+            addAgent(new Prisoner("P# " + i, s, grabColor(tracker)));
+
+            if (tracker == 4) {
+                tracker = 0;
+            }
+            tracker++;
         }
     }
 
-    public String getStats() {
+    public void stats() {
         int totalFitness = 0;
 
         int totalCheaters = 0;
@@ -46,17 +61,7 @@ public class PDSimulation extends Simulation {
         int rndCounter = 0;
         int t4tCounter = 0;
 
-            /*for (Agent a : agents) {
-                Prisoner p = (Prisoner) a;
-                totalFitness += p.getFit();
-                if (p.didTheyCheat()) totalCheaters++;
-            }
-            return "Average Fitness: " + totalFitness / agents.size() + "\n" +
-                    "Total Cheaters: " + totalCheaters;*/
-
-        Iterator<Agent> itr = agents.iterator();
-        while (itr.hasNext()) {
-            Agent aa = itr.next();
+        for (Agent agent: agents) {
             if (aa instanceof Prisoner) {
                 Prisoner p = (Prisoner) aa;
                 //totalFitness += p.getFit();
@@ -78,28 +83,13 @@ public class PDSimulation extends Simulation {
                 }
             }
 
-/*                if (p.didTheyCheat()) totalCheaters++;
-                if (p.getStrat().assignStrat().equals("Cooperate")) totalCooperators++;
-                if (p.getStrat().assignStrat().equals("Randomly Cooperate")) totalRandoms++;
-                if (p.getStrat().assignStrat().equals("Tit4Tat")) totalTit4Tats++;*/
         }
-        return "Average Fitness Numbers For: " +
-                "\nAlways Cooperative - " + (totalCooperators / coopCounter) +
-                "\nRandomly Cooperative - " + (totalRandoms / rndCounter) +
-                "\nAlways Cheating - " + (totalCheaters / cheatCounter) +
-                "\nTit4Tat - " + (totalTit4Tats / t4tCounter);
 
-/*            Prisoner p = (Prisoner) itr.next();
-            totalFitness += p.getFit();
-            if (p.didTheyCheat()) totalCheaters++;
-            if (p.getStrat().assignStrat().equals("Cooperate")) totalCooperators++;
-            if (p.getStrat().assignStrat().equals("Randomly Cooperate")) totalRandoms++;
-            if (p.getStrat().assignStrat().equals("Tit4Tat")) totalTit4Tats++;*/
-        //}
-/*        return "Average Fitness: " + totalFitness / agents.size() + "\n" +
-                "Total Cheaters: " + totalCheaters + "\n" +
-                "Total Cooperators: " + totalCooperators + "\n" +
-                "Total Randomly Cooperate: " + totalRandoms + "\n" +
-                "Total Tit4Tat: " + totalTit4Tats;*/
+
+    }
+    public static void main (String[]args){
+        AppPanel panel = new SimulationPanel(new PDFactory());
+        panel.display();
+
     }
 }

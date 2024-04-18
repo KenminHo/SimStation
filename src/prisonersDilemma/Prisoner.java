@@ -9,6 +9,9 @@ public class Prisoner extends Agent {
     private boolean partnerCheated = false;
     private Strategy strat;
 
+    protected Color color = Color.WHITE;
+
+
     //-----------------------
 
     public boolean cooperate() {
@@ -16,10 +19,11 @@ public class Prisoner extends Agent {
         //return strategy.decide(this);
     }
 
-    public Prisoner (String name, Strategy strat) {
+    public Prisoner (String name, Strategy strat, Color color) {
         super();
         this.heading = Heading.random();
         this.strat = strat;
+        this.color = color;
     }
 
     public void fitnessScores (boolean pa, boolean pb) {
@@ -39,7 +43,7 @@ public class Prisoner extends Agent {
 
     @Override
     public Color getColor() {
-        return Color.WHITE;
+        return this.color;
     }
 
     @Override public void update() {
