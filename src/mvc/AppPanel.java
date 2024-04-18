@@ -56,6 +56,7 @@ public class AppPanel extends JPanel implements ActionListener {
                 case "Save": {
                     String fName = Utilities.getFileName((String) null, false);
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fName));
+                    setModel(this.model);
                     os.writeObject(this.model);
                     os.close();
                     break;

@@ -18,7 +18,6 @@ public class SimulationPanel extends AppPanel{
 
     transient protected Thread myThread;
 
-    @Override
     public void setModel(Model m) {
         super.setModel(m); // calling AppPanel.setModel(m)
         Simulation s = (Simulation)m;

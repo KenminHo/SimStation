@@ -108,7 +108,8 @@ public class Simulation extends Model {
     }
 
     public Iterator<Agent> iterator() {
-        return (Iterator<Agent>) agents;
+        System.out.println("REACHED here");
+        return agents.iterator();
     }
 
     private class ClockUpdater extends TimerTask {

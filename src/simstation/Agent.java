@@ -21,7 +21,7 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
     public void setWorld(Simulation w) {world = w;}
 
     public Agent() {
-        Heading.random();
+
     }
 
     public abstract Color getColor();
@@ -33,15 +33,15 @@ public abstract class Agent extends Publisher implements Serializable, Runnable 
         while (!stopped) {
             try {
                 update();
-                Thread.sleep(50);
+                Thread.sleep(20);
                 checkSuspended();
             } catch (InterruptedException e) {
                 Utilities.error(e);
             }
         }
         onExit();
-
     }
+
 
     private void onExit() {
     }
