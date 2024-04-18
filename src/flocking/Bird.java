@@ -7,31 +7,35 @@ import java.awt.*;
 
 //speed: int; update() => simstation.Agent()
 
-public class Bird extends Agent{
-    public Bird(){
-        super();
-        heading = Heading.random();
-    }
 
-    public void update(){
-        heading = Heading.random();
-        int steps = Utilities.rng.nextInt(10) + 1;
-        move(steps);
+public class Bird extends Agent {
+    private int speed;
+
+    public Bird() {
+        super();
+        this.heading = Heading.random();
+        this.speed = Utilities.rng.nextInt(5) + 1;
+        //setSpeed(getSpeed());
     }
 
     @Override
-    public Color getColor() {
-        return Color.WHITE;
+    public void update() {
+        //heading = Heading.random();
+        Agent neighbor = world.getNeighbors(this, 10);
+        if (neighbor != null && neighbor instanceof Bird) {
+            Bird b = (Bird) neighbor;
+            this.heading = b.heading;
+            this.speed = b.speed;
+        }
+        move(speed);
     }
 
-    public void start(){
-        while(true){
-            update();
-            try{
-                Thread.sleep(100);
-            }catch(InterruptedException e){
-                e.printStackTrace();
-            }
-        }
+    public int getSpeed() {
+        //speed = Utilities.rng.nextInt(5) + 1;
+        return speed;
+    }
+    @Override
+    public Color getColor() {
+        return Color.WHITE;
     }
 }
